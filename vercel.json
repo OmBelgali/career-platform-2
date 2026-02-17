@@ -23,11 +23,11 @@
         },
         {
             "src": "/assets/(.*)",
-            "dest": "/apps/web/dist/assets/$1"
+            "dest": "apps/web/dist/assets/$1"
         },
         {
             "src": "/(.*)",
-            "dest": "/apps/web/dist/index.html"
+            "dest": "apps/web/dist/index.html"
         }
     ]
 }

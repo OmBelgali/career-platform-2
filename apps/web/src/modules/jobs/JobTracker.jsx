@@ -2,22 +2,31 @@ import { useState, useEffect } from 'react';
 
 export default function JobTracker() {
     const [jobs, setJobs] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    const API_URL = import.meta.env.VITE_API_URL || '/api';
 
     useEffect(() => {
-        fetch(import.meta.env.VITE_API_URL + '/jobs')
-            .then(res => res.json())
+        fetch(`${API_URL}/jobs`)
+            .then(res => {
+                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+                return res.json();
+            })
             .then(data => {
                 setJobs(data);
                 setLoading(false);
             })
             .catch(err => {
                 console.error("Failed to fetch jobs", err);
+                setError(err.message);
                 setLoading(false);
             });
     }, []);
 
-    if (loading) return <div className="p-8">Loading jobs...</div>;
+    if (loading) return <div className="p-8 text-center text-gray-500">Loading jobs...</div>;
+    if (error) return <div className="p-8 text-center text-red-500">Error loading jobs: {error}</div>;
+
+    if (jobs.length === 0) return <div className="p-8 text-center text-gray-500">No jobs found. (Check database connection)</div>;
 
     return (
         <div className="p-6 max-w-7xl mx-auto">
