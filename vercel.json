@@ -19,8 +19,7 @@
             "dest": "apps/api/index.js"
         },
         {
-            "src": "/assets/(.*)",
-            "dest": "apps/web/assets/$1"
+            "handle": "filesystem"
         },
         {
             "src": "/(.*)",
