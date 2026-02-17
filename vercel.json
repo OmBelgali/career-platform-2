@@ -22,8 +22,12 @@
             "handle": "filesystem"
         },
         {
+            "src": "/assets/(.*)",
+            "dest": "/apps/web/dist/assets/$1"
+        },
+        {
             "src": "/(.*)",
-            "dest": "apps/web/index.html"
+            "dest": "/apps/web/dist/index.html"
         }
     ]
 }
